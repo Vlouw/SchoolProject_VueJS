@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chat</title>
+        <link rel="stylesheet" href="css/global.css">
+        <link rel="icon" href="img/favicon.png" type="image/png" />
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+        <script type="module" src="src/page-chat.js"></script>
+    </head>
+    <body>
+        <!-- Tout le code html doit faire partie de ce div -->
+        <div id="app">
+            <div id="animation-block">
+                <div id="background-top" class="chat-top">         
+                    <div id="chat-area">
+                        <span id="chat-list" v-for="t in chatlist" :style="{color: t.color}">{{ t.user }}: {{t.text}}</span>
+                    </div>
+                    <div id="chat-user">
+                        <span class="user-list" >CLAVARDEURS CONNECTÉS:</span>
+                        <span class="user-list" v-for="u in users" :style="{color: u.color}" @click="whisper(u.user)">► {{ u.user }}</span>
+                    </div>
+                </div>        
+                <div id="background-bot">
+                    <div>
+                        <textarea   id="chat-text" 
+                                    cols="30"
+                                    rows="10"
+                                    placeholder="Pour clavarder, écrire ici"
+                                    v-on:keyup.enter="sendMessage($event)"
+                                    ref="el"
+                                    v-model="whisperto">
+                        </textarea>
+                    </div>
+                    <a href="javascript:void(0)" id="sign-out-btn" @click="signout">Déconnexion</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
